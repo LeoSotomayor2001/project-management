@@ -23,6 +23,12 @@ Iniciar Sesión
             </div>
 
         @endif
+        @if (session('error'))
+            <div class="bg-red-500 text-white font-bold p-4 rounded-lg mb-6 text-center">
+             {{ session('error') }}
+            </div>
+
+        @endif
         <form method="POST" action="{{ route('login') }}" novalidate>
             @csrf
             <div class="mb-5">
