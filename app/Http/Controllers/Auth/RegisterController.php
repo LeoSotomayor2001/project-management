@@ -22,5 +22,8 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        return redirect('/login')->with('message', 'Registrado correctamente. Por favor inicia sesion.');
+
     }
 }
