@@ -1,12 +1,13 @@
 @extends('layout.app')
+
 @section('title')
-Home
+Página Principal
 @endSection
 
 @section('header')
-<x-header />
+
 @endsection
 
 @section('content')
-
+    <h1>Hola mundo</h1>
 @endSection

@@ -19,5 +19,6 @@ class LoginController extends Controller
             return back()->with('error','Credenciales Incorrectas');
         }
 
+        return redirect()->route('home');
     }
 }
