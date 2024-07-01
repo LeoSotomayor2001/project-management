@@ -1,13 +1,15 @@
-@extends('layout.app')
+@extends('layout.dashlayout')
 
 @section('title')
-Página Principal
+    Dashboard
 @endSection
 
-@section('header')
+@section('sidebar')
 
-@endsection
+<x-sidebar />
+
+@endSection
 
 @section('content')
-    <h1>Hola mundo</h1>
+
 @endSection
