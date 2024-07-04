@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 
 document.addEventListener('DOMContentLoaded', function() {
     const deleteButtons = document.querySelectorAll('.delete-button');
-    
+    const succes=document.querySelector('#success');
     deleteButtons.forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault();
@@ -29,4 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+    if(succes){
+        setTimeout(() => {
+            succes.classList.add('fade-out');
+            succes.remove();
+        }, 2000); // Tiempo de la animación
+    }
 });

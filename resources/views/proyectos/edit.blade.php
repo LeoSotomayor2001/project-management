@@ -1,7 +1,7 @@
 @extends('layout.dashlayout')
 
 @section('title')
-    Crear Proyecto
+    Editar Proyecto
 @endSection
 
 @section('sidebar')
@@ -15,10 +15,10 @@
         <h1 class="text-2xl font-bold mb-6">Crear Proyecto</h1>
 
         @include('proyectos.form', [
-            'action' => route('proyectos.create'),
-            'method' => 'POST',
-            'project' => new \App\Models\proyecto(),
-            'buttonText' => 'Crear Proyecto'
+            'action' => route('proyectos.edit', $proyecto),
+            'method' => 'PUT',
+            'project' => $proyecto,
+            'buttonText' => 'Guardar cambios'
         ])
     </div>
 </div>

@@ -30,6 +30,21 @@ class ProyectoController extends Controller
         return redirect()->route('proyectos.index')->with('success', 'Proyecto creado correctamente.');
     }
 
+    public function edit(proyecto $proyecto){
+        return view('proyectos.edit', compact('proyecto'));
+    }
+
+    public function update(ProyectoRequest $request, proyecto $proyecto){
+        $validated = $request->validate([
+            'nombre' => 'required|max:255',
+            'descripcion' => 'nullable|string',
+        ]);
+
+        $proyecto->update($validated);
+
+        return redirect()->route('proyectos.index')->with('success', 'Proyecto actualizado exitosamente.');
+    }
+
     public function destroy(proyecto $proyecto){
         $proyecto->delete();
         return redirect()->route('proyectos.index');

@@ -27,6 +27,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [ProyectoController::class, 'index'])->name('proyectos.index');
         Route::get('/crear', [ProyectoController::class, 'create'])->name('proyectos.create');
         Route::post('/crear', [ProyectoController::class, 'store']);
+        Route::get('/editar/{proyecto}', [ProyectoController::class, 'edit'])->name('proyectos.edit');
+        Route::put('/editar/{proyecto}', [ProyectoController::class, 'update']);
         Route::delete('/{proyecto}', [ProyectoController::class, 'destroy'])->name('proyectos.destroy');
     });
 });
