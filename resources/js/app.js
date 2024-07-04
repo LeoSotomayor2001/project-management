@@ -1,12 +1,15 @@
 import './bootstrap';
 import Swal from 'sweetalert2';
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('#delete-project').forEach(button => {
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    
+    deleteButtons.forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault();
-            const form = this.closest('form');
-
+            const form = this.closest('.delete-form');
+            const projectItem = this.closest('.project-item');
+            
             Swal.fire({
                 title: '¿Estás seguro?',
                 text: "¡No podrás revertir esto!",
@@ -14,21 +17,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, eliminarlo',
+                confirmButtonText: 'Sí, eliminarlo!',
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "Proyecto borrado correctamente",
-                        showConfirmButton: false,
-                        timer: 1500
-                      });
-                    form.submit();
-                      
-                        
-                  
+                    setTimeout(() => {
+                        projectItem.classList.add('fade-out');
+                        form.submit();
+                    }, 500); // Tiempo de la animación
                 }
             });
         });
