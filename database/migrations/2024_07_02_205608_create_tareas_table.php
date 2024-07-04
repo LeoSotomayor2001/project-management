@@ -20,6 +20,7 @@ return new class extends Migration
                 ->comment('1 = Completada, 2 = Pendiente, 3 = Cancelada')
                 ->check('estado IN (1, 2, 3)');
             $table->date('fecha')->nullable(false);
+            $table->timestamps();
             $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade');
         });
     }

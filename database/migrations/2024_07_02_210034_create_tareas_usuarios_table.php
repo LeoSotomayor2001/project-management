@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tareas_usuarios', function (Blueprint $table) {
             $table->bigInteger('tarea_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
+            $table->timestamps();
             $table->foreign('tarea_id')->references('id')->on('tareas')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

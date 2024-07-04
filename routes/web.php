@@ -25,5 +25,6 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'proyectos'], function () {
         Route::get('/', [ProyectoController::class, 'index'])->name('proyectos.index');
         Route::get('/crear', [ProyectoController::class, 'create'])->name('proyectos.create');
+        Route::post('/crear', [ProyectoController::class, 'store']);
     });
 });
