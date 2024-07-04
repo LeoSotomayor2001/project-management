@@ -22,9 +22,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
+    // Proyectos
     Route::group(['prefix' => 'proyectos'], function () {
         Route::get('/', [ProyectoController::class, 'index'])->name('proyectos.index');
         Route::get('/crear', [ProyectoController::class, 'create'])->name('proyectos.create');
         Route::post('/crear', [ProyectoController::class, 'store']);
+        Route::delete('/{proyecto}', [ProyectoController::class, 'destroy'])->name('proyectos.destroy');
     });
 });

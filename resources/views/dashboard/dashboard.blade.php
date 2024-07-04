@@ -17,7 +17,11 @@
                 <div class="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition duration-300 ease-in-out flex flex-col items-center w-full ">
                     <h2 class="text-xl font-bold mb-2 ">Proyectos</h2>
                     <img src="{{ asset('img/proyecto.svg') }}" alt="">
-                    <p class="text-gray-600">Actualmente tienes 0 proyectos</p>
+                    <p>Actualmente tienes {{ count(auth()->user()->proyectos) }} {{ Str::plural('proyecto', count(auth()->user()->proyectos)) }}</p>
+
+                    <a href="{{ route('proyectos.index') }}" class="text-blue-500 hover:text-blue-700 transition duration-300 ease-in-out">
+                        Ver proyectos
+                    </a>
                 </div>
             </div>
             <div class="w-full md:w-1/3 lg:w-1/3 px-3 mb-6 flex justify-center items-stretch">

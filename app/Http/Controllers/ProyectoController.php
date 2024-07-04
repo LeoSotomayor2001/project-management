@@ -29,4 +29,9 @@ class ProyectoController extends Controller
 
         return redirect()->route('proyectos.index')->with('success', 'Proyecto creado correctamente.');
     }
+
+    public function destroy(proyecto $proyecto){
+        $proyecto->delete();
+        return redirect()->route('proyectos.index');
+    }
 }
