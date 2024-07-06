@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,6 +31,9 @@ class Tarea extends Model
             default:
                 return 'Desconocido';
         }
+    }
+    public function formatFecha(){
+        return Carbon::parse($this->fecha)->format('d/m/Y');
     }
     public function proyecto()
     {

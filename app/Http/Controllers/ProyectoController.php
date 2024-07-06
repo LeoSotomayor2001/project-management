@@ -17,6 +17,10 @@ class ProyectoController extends Controller
         return view('proyectos.create');
     }
 
+    public function show(proyecto $proyecto){
+        return view('proyectos.show', compact('proyecto'));
+    }
+
     public function store(ProyectoRequest $request){
         
         $request->validated();
@@ -33,6 +37,7 @@ class ProyectoController extends Controller
     public function edit(proyecto $proyecto){
         return view('proyectos.edit', compact('proyecto'));
     }
+
 
     public function update(ProyectoRequest $request, proyecto $proyecto){
         $validated = $request->validate([

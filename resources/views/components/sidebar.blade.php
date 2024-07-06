@@ -13,7 +13,7 @@
                 <a 
                     href="{{ route('proyectos.index') }}" 
                     class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-700 {{ Route::currentRouteName() == 'proyectos.index' 
-                    ||  Route::currentRouteName() == 'proyectos.create' ||  Route::currentRouteName() == 'proyectos.edit'  ? 'bg-indigo-700 text-white' : '' }}">
+                    ||  Route::currentRouteName() == 'proyectos.create' ||  Route::currentRouteName() == 'proyectos.edit'  ||  Route::currentRouteName() == 'proyectos.show' ? 'bg-indigo-700 text-white' : '' }}">
                     Proyectos
                 </a>
             </li>
