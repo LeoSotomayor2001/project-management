@@ -1,7 +1,7 @@
 @extends('layout.dashlayout')
 
 @section('title')
-    Crear Proyecto
+    Crear Tarea
 @endSection
 
 @section('sidebar')
@@ -11,12 +11,13 @@
 @section('content')
 <div class="md:w-8/12 bg-white p-6 rounded-lg shadow-xl m-auto">
     <div class="max-w-2xl mx-auto">
-        <h1 class="text-2xl font-bold mb-6">Crear Proyecto</h1>
+        <h1 class="text-2xl font-bold mb-6">Crear Tarea</h1>
 
-        @include('proyectos.form', [
-            'action' => route('proyectos.create'),
+        @include('tareas.form', [
+            'action' => route('tareas.create'),
             'method' => 'POST',
-            'project' => new \App\Models\proyecto(),
+            'proyectos' => $proyectos,
+            'tarea' => new \App\Models\Tarea(),
             'buttonText' => 'Crear'
         ])
     </div>

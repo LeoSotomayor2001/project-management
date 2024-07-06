@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProyectoController;
+use App\Http\Controllers\TareaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,5 +31,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/editar/{proyecto}', [ProyectoController::class, 'edit'])->name('proyectos.edit');
         Route::put('/editar/{proyecto}', [ProyectoController::class, 'update']);
         Route::delete('/{proyecto}', [ProyectoController::class, 'destroy'])->name('proyectos.destroy');
+    });
+
+    // Tareas
+    Route::group(['prefix' => 'tareas'], function () {
+        Route::get('/', [TareaController::class, 'index'])->name('tareas.index');
+        Route::get('/crear', [TareaController::class, 'create'])->name('tareas.create');
+        Route::post('/crear', [TareaController::class, 'store']);
+        Route::get('/editar/{tarea}', [TareaController::class, 'show'])->name('tareas.update');
+        Route::put('/editar/{tarea}', [TareaController::class, 'update']);
+        Route::delete('/{tarea}', [TareaController::class, 'destroy'])->name('tareas.destroy');
     });
 });
