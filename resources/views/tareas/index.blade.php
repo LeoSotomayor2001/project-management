@@ -46,7 +46,7 @@ Tareas
                 <div>{{ $tarea->proyecto->nombre }}</div>
                 <div class="font-bold">Acciones</div>
                 <div class="flex justify-start">
-                    <form action="{{ route('proyectos.destroy', $tarea) }}" method="POST" class="delete-form">
+                    <form action="{{ route('tareas.destroy', $tarea) }}" method="POST" class="delete-form">
                         @csrf
                         @method('DELETE')
                         <input 
@@ -63,7 +63,7 @@ Tareas
                 <div>{{ $tarea->estado_texto }}</div>
                 <div>{{ $tarea->proyecto->nombre }}</div>
                 <div class="flex justify-end md:justify-start">
-                    <form action="{{ route('proyectos.destroy', $tarea) }}" method="POST" class="delete-form">
+                    <form action="{{ route('tareas.destroy', $tarea) }}" method="POST" class="delete-form">
                         @csrf
                         @method('DELETE')
                         <input 

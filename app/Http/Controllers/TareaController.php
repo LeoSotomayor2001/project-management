@@ -50,6 +50,9 @@ class TareaController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        
+        $tarea=Tarea::find($id);
+        $tarea->delete();
+        return redirect()->route('tareas.index')->with('success', 'Tarea eliminada correctamente.');
     }
 }
