@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [TareaController::class, 'index'])->name('tareas.index');
         Route::get('/crear', [TareaController::class, 'create'])->name('tareas.create');
         Route::post('/crear', [TareaController::class, 'store']);
-        Route::get('/editar/{tarea}', [TareaController::class, 'show'])->name('tareas.update');
+        Route::get('/editar/{tarea}', [TareaController::class, 'edit'])->name('tareas.update');
         Route::put('/editar/{tarea}', [TareaController::class, 'update']);
         Route::delete('/{tarea}', [TareaController::class, 'destroy'])->name('tareas.destroy');
     });

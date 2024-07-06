@@ -38,14 +38,21 @@ class TareaController extends Controller
         //
     }
 
-    public function edit(string $id)
+    public function edit(Tarea $tarea)
     {
-        //
+        $proyectos=auth()->user()->proyectos;
+        return view('tareas.edit',compact('tarea','proyectos'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(TareaRequest $request, Tarea $tarea)
     {
-        //
+        $request->validated();
+        $tarea->nombre=$request->nombre;
+        $tarea->fecha=$request->fecha;
+        $tarea->proyecto_id=$request->proyecto_id;
+        $tarea->save();
+
+        return redirect()->route('tareas.index')->with('success', 'Tarea actualizada correctamente.');
     }
 
     public function destroy(string $id)
