@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProyectoRequest;
 use App\Models\proyecto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProyectoController extends Controller
 {
@@ -16,20 +17,26 @@ class ProyectoController extends Controller
     public function create(){
         return view('proyectos.create');
     }
-
-    public function show(proyecto $proyecto){
-        return view('proyectos.show', compact('proyecto'));
+    public function show(proyecto $proyecto)
+    {
+        $tareas = $proyecto->tareas;
+        $usersProject = $proyecto->users; // obtener los usuarios directamente desde la relación del proyecto
+        return view('proyectos.show', compact('proyecto', 'tareas', 'usersProject'));
     }
+    
 
     public function store(ProyectoRequest $request){
         
         $request->validated();
 
-        proyecto::create([
+        $proyecto=proyecto::create([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'usuario_id' => auth()->user()->id
         ]);
+
+            // Asignar al usuario autenticado como el primer colaborador
+        $proyecto->users()->attach(Auth::id());
 
         return redirect()->route('proyectos.index')->with('success', 'Proyecto creado correctamente.');
     }

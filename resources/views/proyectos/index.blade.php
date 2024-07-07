@@ -30,7 +30,8 @@
                 <img src="{{ asset('img/proyecto.svg') }}" alt="imagen proyecto" class="mb-4 w-full h-auto">
                 <p class="text-gray-600 mb-4">{{ $proyecto->descripcion }}</p>
             </div>
-            <p class="font-bold">Actualmente tienes 0 tareas en este proyecto</p>
+            <p class="font-bold">Actualmente tienes {{ count($proyecto->tareas) }} {{ Str::plural('tarea', count($proyecto->tareas)) }}
+             en este proyecto</p>
             <div class="flex justify-between items-center">
                 <form action="{{ route('proyectos.destroy', $proyecto) }}" method="POST" class="delete-form">
                     @csrf
