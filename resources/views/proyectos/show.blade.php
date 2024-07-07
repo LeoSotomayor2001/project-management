@@ -24,7 +24,7 @@
         <ul class="list-disc list-inside space-y-2">
             
             @foreach ($tareas as $tarea)
-                <li class="text-gray-700">{{ $tarea->nombre }}</li>
+                <li class="text-gray-700">{{ $tarea->nombre }} - {{$tarea->estado_texto}}</li>
             @endforeach
         </ul>
     @else
@@ -36,12 +36,17 @@
     @if ($usersProject->isEmpty())
         <p>No hay colaboradores en este proyecto.</p>
     @else
-        <ul class="list-disc list-inside space-y-2">
+        <ul class="list-disc list-inside space-y-2 last-of-type:mb-6">
             @foreach ($usersProject as $user)
                 <li class="text-gray-700">{{ $user->name }} ({{ $user->email }})</li>
             @endforeach
         </ul>
     @endif
+        <a 
+            href="" 
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 ">
+            Invitar
+        </a>
 </div>
 
 @endSection

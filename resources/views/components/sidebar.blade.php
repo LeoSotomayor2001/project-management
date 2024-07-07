@@ -12,14 +12,15 @@
             <li class="mb-2">
                 <a 
                     href="{{ route('proyectos.index') }}" 
-                    class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-700 {{ Route::currentRouteName() == 'proyectos.index' 
-                    ||  Route::currentRouteName() == 'proyectos.create' ||  Route::currentRouteName() == 'proyectos.edit'  ||  Route::currentRouteName() == 'proyectos.show' ? 'bg-indigo-700 text-white' : '' }}">
+                    class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-700 {{ isCurrentRouteIn(['proyectos.index', 'proyectos.create', 'proyectos.edit', 'proyectos.show']) ? 'bg-indigo-700 text-white' : '' }}"
+                >
                     Proyectos
                 </a>
+
             </li>
             <li class="mb-2">
                 <a href="{{ route('tareas.index') }}" 
-                class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-700 {{ Route::currentRouteName() == 'tareas.index' || Route::currentRouteName() == 'tareas.create' ||  Route::currentRouteName() == 'tareas.edit' ? 'bg-indigo-700 text-white' : '' }}">
+                class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-700 {{ isCurrentRouteIn(['tareas.index', 'tareas.create', 'tareas.edit', 'tareas.show']) ? 'bg-indigo-700 text-white' : '' }}">
                     Tareas
                 </a>
             </li>
