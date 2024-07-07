@@ -25,8 +25,14 @@
                 </a>
             </li>
             <li class="mb-2">
-                <a href="" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-700 {{ Route::currentRouteName() == 'profile.show' ? 'bg-indigo-700 text-white' : '' }}">
-                    Perfil
+                <a href="{{ route('notificaciones.index') }}" 
+                    class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-700 {{ Route::currentRouteName() == 'notificaciones.index' ? 'bg-indigo-700 text-white' : '' }}"
+                >
+                    <span>Notificaciones</span>
+                    @if(auth()->user()->unreadNotifications->count() > 0)
+                        ({{ auth()->user()->unreadNotifications->count() }})
+                    @endif
+                
                 </a>
             </li>
             <li class="mb-2">

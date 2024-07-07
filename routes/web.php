@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\TareaController;
 use App\Http\Controllers\UserController;
@@ -28,12 +30,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [ProyectoController::class, 'index'])->name('proyectos.index');
         Route::get('/crear', [ProyectoController::class, 'create'])->name('proyectos.create');
         Route::get('/{proyecto}', [ProyectoController::class, 'show'])->name('proyectos.show');
-        Route::post('/proyectos/{proyecto}/invitar', [ProyectoController::class, 'invitar'])->name('proyectos.invitar');
+        Route::post('/proyectos/{proyecto}/invitar', [InvitationController::class, 'invitar'])->name('proyectos.invitar');
         Route::post('/crear', [ProyectoController::class, 'store']);
         Route::get('/editar/{proyecto}', [ProyectoController::class, 'edit'])->name('proyectos.edit');
         Route::put('/editar/{proyecto}', [ProyectoController::class, 'update']);
         Route::delete('/{proyecto}', [ProyectoController::class, 'destroy'])->name('proyectos.destroy');
     });
+
+    //Notificaciones
+    Route::get('/notificaciones', [NotificationController::class, 'index'])->name('notificaciones.index');
+    Route::post('/notificaciones/{notification}/respond/{action}', [NotificationController::class, 'respond'])->name('proyectos.invitation.respond');
 
     // Tareas
     Route::group(['prefix' => 'tareas'], function () {

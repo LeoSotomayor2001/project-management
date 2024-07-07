@@ -5,10 +5,12 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class proyecto extends Model
 {
     use HasFactory;
+    use Notifiable;
     protected $table = 'proyectos';
 
     protected $fillable = [

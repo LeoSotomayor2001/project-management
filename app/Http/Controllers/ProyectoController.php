@@ -15,7 +15,7 @@ class ProyectoController extends Controller
     public function index()
     {
 
-        $userProjects = auth()->user()->proyectos;
+        $userProjects = auth()->user()->proyectos;//obtener los proyectos donde el usuario es colaborador
         return view('proyectos.index', compact('userProjects'));
     }
     public function create()
@@ -23,25 +23,12 @@ class ProyectoController extends Controller
         return view('proyectos.create');
     }
     public function show(proyecto $proyecto)
-    {
+    {   
+        //obtener las tareas del proyecto
         $tareas = $proyecto->tareas;
-        $usersProject = $proyecto->users; // obtener los usuarios directamente desde la relación del proyecto
+        // obtener los usuarios directamente desde la relación del proyecto
+        $usersProject = $proyecto->users; 
         return view('proyectos.show', compact('proyecto', 'tareas', 'usersProject'));
-    }
-    public function invitar(InvitacionRequest $request, Proyecto $proyecto)
-    {
-        Gate::authorize('invitar', $proyecto);
-        $request->validated();
-
-        $user = User::where('email', $request->input('email'))->first();
-
-        if ($proyecto->users->contains($user)) {
-            return redirect()->back()->with('error', 'El usuario ya es colaborador de este proyecto.');
-        }
-
-        $proyecto->users()->attach($user);
-
-        return redirect()->back()->with('success', 'Usuario invitado correctamente.');
     }
 
 

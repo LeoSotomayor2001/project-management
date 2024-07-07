@@ -15,11 +15,12 @@
         Creado el <span class="font-semibold">{{ $proyecto->formatFecha() }}</span> por
         <span class="font-semibold">{{ $proyecto->creator->name }}</span>
     </p>
+    <p class="mb-1 font-bold text-2xl">Descripción:</p>
     <p class="text-gray-600 mb-4">{{ $proyecto->descripcion }}</p>
     </p>
 
     @if (count($tareas) > 0)
-        <p class="text-gray-600 mb-4">Lista de tareas:
+        <p class="font-bold mb-4 text-2xl">Lista de tareas:
         </p>
         <ul class="list-disc list-inside space-y-2">
             
@@ -31,7 +32,7 @@
         <p class="text-gray-600">No hay tareas</p>
     @endif
 
-    <h2 class="text-2xl font-bold mb-4">Colaboradores</h2>
+    <h2 class="text-2xl font-bold mb-4">Colaboradores:</h2>
     @if (session('success'))
         <div class="bg-green-500 text-white font-bold p-4 rounded-lg mb-6 text-center">
             {{ session('success') }}
