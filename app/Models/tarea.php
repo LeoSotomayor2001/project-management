@@ -32,11 +32,16 @@ class Tarea extends Model
                 return 'Desconocido';
         }
     }
-    public function formatFecha(){
+    public function formatFecha()
+    {
         return Carbon::parse($this->fecha)->format('d/m/Y');
     }
     public function proyecto()
     {
         return $this->belongsTo(proyecto::class, 'proyecto_id', 'id');
+    }
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'tareas_usuarios', 'tarea_id', 'user_id');
     }
 }

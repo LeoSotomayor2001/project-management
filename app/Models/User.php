@@ -45,9 +45,11 @@ class User extends Authenticatable
         ];
     }
 
-    public function tareas(){
-        return $this->hasMany(tarea::class, 'usuario_id', 'id');
+    public function tareas()
+    {
+        return $this->belongsToMany(Tarea::class, 'tareas_usuarios', 'user_id', 'tarea_id');
     }
+    
 
     public function proyectos()
     {

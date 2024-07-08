@@ -10,6 +10,17 @@
 
 @section('content')
 <h1 class="text-3xl text-center mb-5 font-bold">{{$proyecto->nombre}}</h1>
+@if (session('success'))
+<div class="bg-green-500 text-white font-bold p-4 rounded-lg mb-6 text-center">
+    {{ session('success') }}
+</div>
+@endif
+
+@if (session('error'))
+<div class="bg-red-500 text-white font-bold p-4 rounded-lg mb-6 text-center">
+    {{ session('error') }}
+</div>
+@endif
 <div class="md:w-auto bg-white p-6 rounded-lg shadow-xl text-xl">
     <p class="text-gray-600 mb-4 border-b border-b-green-800">
         Creado el <span class="font-semibold">{{ $proyecto->formatFecha() }}</span> por
@@ -20,30 +31,55 @@
     </p>
 
     @if (count($tareas) > 0)
-        <p class="font-bold mb-4 text-2xl">Lista de tareas:
+        <p class="font-bold mb-4 text-2xl">
+            Lista de tareas:
         </p>
-        <ul class="list-disc list-inside space-y-2">
-            
-            @foreach ($tareas as $tarea)
-                <li class="text-gray-700">{{ $tarea->nombre }} - {{$tarea->estado_texto}}</li>
-            @endforeach
-        </ul>
+   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+       @foreach ($tareas as $tarea)
+           <div class="bg-white p-4 border border-gray-200 rounded-lg flex flex-col items-center">
+               <!-- Task content -->
+               <p class="text-gray-700">{{ $tarea->nombre }} - {{ $tarea->estado_texto }}</p>
+               
+               <!-- Task assignment form -->
+               <form action="{{ route('tareas.asignar', ['proyecto' => $proyecto->id, 'tarea' => $tarea->id]) }}" method="POST" class="flex items-center space-x-2">
+                   @csrf
+                   <label for="asignar">Asignar tarea a:</label>
+                   <select name="user_id" id="asignar-{{ $tarea->id }}" class="border p-1 rounded-lg">
+                       @foreach ($usersProject as $user)
+                           <option value="{{ $user->id }}">{{ $user->name }}</option>
+                       @endforeach
+                   </select>
+                   <button type="submit" class="bg-green-500 p-1 text-white rounded-lg hover:bg-green-600 transition duration-200" title="Asignar Tarea">
+                       <img src="{{ asset('img/asignar.svg') }}" alt="asignar tarea" class="w-12 md:w-6">
+                   </button>
+                   <div class="flex items-center space-x-4">
+                        <a href="{{ route('tareas.update', ['proyecto' => $proyecto->id, 'tarea' => $tarea->id]) }}" class="bg-yellow-500 p-1 text-white rounded-lg hover:bg-yellow-600 transition duration-200 inline-flex items-center space-x-1">
+                            <img src="{{ asset('img/edit.svg') }}" alt="Editar" class="w-12 md:w-6">
+                        </a>
+                        
+                        <form action="{{ route('tareas.destroy', ['proyecto' => $proyecto->id, 'tarea' => $tarea->id]) }}" method="POST" class="inline-flex items-center space-x-2">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-500 p-1 text-white rounded-lg hover:bg-red-600 transition duration-200 inline-flex items-center space-x-1">
+                                <img src="{{ asset('img/delete.svg') }}" alt="Eliminar" class="w-12 md:w-6">
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                </form>
+               
+               
+       @endforeach
+   </div>
+    
+    
+    
     @else
         <p class="text-gray-600">No hay tareas</p>
     @endif
 
     <h2 class="text-2xl font-bold mb-4">Colaboradores:</h2>
-    @if (session('success'))
-        <div class="bg-green-500 text-white font-bold p-4 rounded-lg mb-6 text-center">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="bg-red-500 text-white font-bold p-4 rounded-lg mb-6 text-center">
-            {{ session('error') }}
-        </div>
-    @endif
+   
     @if ($usersProject->isEmpty())
         <p>No hay colaboradores en este proyecto.</p>
     @else
