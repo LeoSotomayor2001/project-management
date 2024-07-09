@@ -59,6 +59,16 @@ Tareas
                 <div>{{ $tarea->estado_texto }}</div>
                 <div>{{ $tarea->proyecto->nombre }}</div>
                 <div>{{ $tarea->formatFecha() }}</div>
+                @can('Completar', $tarea)
+                    <form action="{{ route('tareas.completar', $tarea)}}" method="POST">
+                        @method('PATCH')
+                        @csrf
+                        <input type="submit" value="Completar" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200 cursor-pointer">
+                    </form>
+                @endcan
+                @cannot('Completar', $tarea)
+                    <p class="text-red-500">Esta tarea ya está completada</p>
+                @endcannot
             </div>
         </div>
         @endforeach

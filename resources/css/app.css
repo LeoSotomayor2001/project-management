@@ -30,3 +30,10 @@
 .fade-out {
     animation: fadeOut 0.5s forwards;
 }
+body {
+    overflow-x: hidden; /* Previene el desbordamiento horizontal */
+}
+
+html, body {
+    width: 100%;
+}

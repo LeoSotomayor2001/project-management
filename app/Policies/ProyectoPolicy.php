@@ -12,4 +12,8 @@ class ProyectoPolicy
     {
         return $user->id === $proyecto->usuario_id;
     }
+    public function acciones(User $user, proyecto $proyecto)
+    {
+        return $user->id === $proyecto->usuario_id;
+    }
 }

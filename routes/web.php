@@ -31,11 +31,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/crear', [ProyectoController::class, 'create'])->name('proyectos.create');
         Route::get('/{proyecto}', [ProyectoController::class, 'show'])->name('proyectos.show');
         Route::post('/{proyecto}/invitar', [InvitationController::class, 'invitar'])->name('proyectos.invitar');
-        Route::post('/proyectos/{proyecto}/tareas/{tarea}', [TareaController::class, 'asignar'])->name('tareas.asignar');
+        Route::post('/{proyecto}/tareas/{tarea}', [TareaController::class, 'asignar'])->name('tareas.asignar');
         Route::post('/crear', [ProyectoController::class, 'store']);
         Route::get('/editar/{proyecto}', [ProyectoController::class, 'edit'])->name('proyectos.edit');
         Route::put('/editar/{proyecto}', [ProyectoController::class, 'update']);
         Route::delete('/{proyecto}', [ProyectoController::class, 'destroy'])->name('proyectos.destroy');
+        Route::delete('/{proyecto}/tareas/{tarea}', [TareaController::class, 'destroy'])->name('tareas.destroy');
     });
 
     //Notificaciones
@@ -47,8 +48,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [TareaController::class, 'index'])->name('tareas.index');
         Route::get('/crear', [TareaController::class, 'create'])->name('tareas.create');
         Route::post('/crear', [TareaController::class, 'store']);
+        Route::patch('/{tarea}/completar', [TareaController::class, 'completar'])->name('tareas.completar');
         Route::get('/editar/{tarea}', [TareaController::class, 'edit'])->name('tareas.update');
         Route::put('/editar/{tarea}', [TareaController::class, 'update']);
-        Route::delete('/{tarea}', [TareaController::class, 'destroy'])->name('tareas.destroy');
     });
 });

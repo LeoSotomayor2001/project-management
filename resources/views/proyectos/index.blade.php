@@ -33,18 +33,21 @@
             <p class="font-bold">Actualmente tienes {{ count($proyecto->tareas) }} {{ Str::plural('tarea', count($proyecto->tareas)) }}
              en este proyecto</p>
             <div class="flex justify-between items-center">
-                <form action="{{ route('proyectos.destroy', $proyecto) }}" method="POST" class="delete-form">
-                    @csrf
-                    @method('DELETE')
-                    <button
-                        title="Eliminar Proyecto"
-                        type="submit" 
-                        class="mt-2 cursor-pointer bg-red-500 text-white font-bold p-2 rounded-lg hover:bg-red-600 transition-colors duration-300 ease-in-out delete-button"
-                    >
-                        <img src="{{ asset('img/delete.svg') }}" alt="eliminar proyecto" class="w-6">  
-                    </button>                  
+                @can('acciones', $proyecto)
+                    <form action="{{ route('proyectos.destroy', $proyecto) }}" method="POST" class="delete-form">
+                        @csrf
+                        @method('DELETE')
+                        <button
+                            title="Eliminar Proyecto"
+                            type="submit" 
+                            class="mt-2 cursor-pointer bg-red-500 text-white font-bold p-2 rounded-lg hover:bg-red-600 transition-colors duration-300 ease-in-out delete-button"
+                        >
+                            <img src="{{ asset('img/delete.svg') }}" alt="eliminar proyecto" class="w-6">  
+                        </button>                  
+                        
+                    </form>
                     
-                </form>
+                @endcan
 
                 <a
                     title="Ver Proyecto"
@@ -53,14 +56,16 @@
                     <img src="{{ asset('img/show.svg') }}" alt="img ojo" class="w-6" >
                       
                 </a>
-
-                <a 
-                    title="Editar Proyecto"
-                    href="{{ route('proyectos.edit', $proyecto) }}"
-                    class="mt-2 cursor-pointer bg-green-500 text-white font-bold p-2 rounded-lg hover:bg-green-600 transition-colors duration-300 ease-in-out"    
-                >
-                 <img src="{{ asset('img/edit.svg') }}" alt="editar proyecto" class="w-6">
-                </a>
+                @can('acciones', $proyecto)
+                    <a 
+                        title="Editar Proyecto"
+                        href="{{ route('proyectos.edit', $proyecto) }}"
+                        class="mt-2 cursor-pointer bg-green-500 text-white font-bold p-2 rounded-lg hover:bg-green-600 transition-colors duration-300 ease-in-out"    
+                    >
+                    <img src="{{ asset('img/edit.svg') }}" alt="editar proyecto" class="w-6">
+                    </a>
+                    
+                @endcan
                   
 
             </div>

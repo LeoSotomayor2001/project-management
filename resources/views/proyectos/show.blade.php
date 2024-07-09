@@ -30,47 +30,49 @@
     <p class="text-gray-600 mb-4">{{ $proyecto->descripcion }}</p>
     </p>
 
+    <p class="font-bold mb-4 text-2xl">
+        Lista de tareas:
+    </p>
     @if (count($tareas) > 0)
-        <p class="font-bold mb-4 text-2xl">
-            Lista de tareas:
-        </p>
-   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-       @foreach ($tareas as $tarea)
-           <div class="bg-white p-4 border border-gray-200 rounded-lg flex flex-col items-center">
-               <!-- Task content -->
-               <p class="text-gray-700">{{ $tarea->nombre }} - {{ $tarea->estado_texto }}</p>
-               
-               <!-- Task assignment form -->
-               <form action="{{ route('tareas.asignar', ['proyecto' => $proyecto->id, 'tarea' => $tarea->id]) }}" method="POST" class="flex items-center space-x-2">
-                   @csrf
-                   <label for="asignar">Asignar tarea a:</label>
-                   <select name="user_id" id="asignar-{{ $tarea->id }}" class="border p-1 rounded-lg">
-                       @foreach ($usersProject as $user)
-                           <option value="{{ $user->id }}">{{ $user->name }}</option>
-                       @endforeach
-                   </select>
-                   <button type="submit" class="bg-green-500 p-1 text-white rounded-lg hover:bg-green-600 transition duration-200" title="Asignar Tarea">
-                       <img src="{{ asset('img/asignar.svg') }}" alt="asignar tarea" class="w-12 md:w-6">
-                   </button>
-                   <div class="flex items-center space-x-4">
-                        <a href="{{ route('tareas.update', ['proyecto' => $proyecto->id, 'tarea' => $tarea->id]) }}" class="bg-yellow-500 p-1 text-white rounded-lg hover:bg-yellow-600 transition duration-200 inline-flex items-center space-x-1">
-                            <img src="{{ asset('img/edit.svg') }}" alt="Editar" class="w-12 md:w-6">
-                        </a>
-                        
-                        <form action="{{ route('tareas.destroy', ['proyecto' => $proyecto->id, 'tarea' => $tarea->id]) }}" method="POST" class="inline-flex items-center space-x-2">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="bg-red-500 p-1 text-white rounded-lg hover:bg-red-600 transition duration-200 inline-flex items-center space-x-1">
-                                <img src="{{ asset('img/delete.svg') }}" alt="Eliminar" class="w-12 md:w-6">
-                            </button>
-                        </form>
-                    </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            @foreach ($tareas as $tarea)
+                <div class="bg-white p-4 border border-gray-200 rounded-lg flex flex-col items-center">
+                    <!-- Task content -->
+                    <p class="text-gray-700">{{ $tarea->nombre }} - {{ $tarea->estado_texto }}</p>
+                    @can('invitar', $proyecto)
+                        @can('completar', $tarea)
+                            <form action="{{ route('tareas.asignar', ['proyecto' => $proyecto->id, 'tarea' => $tarea->id]) }}" method="POST" class="w-full mt-4 flex items-center space-x-2">
+                                @csrf
+                                <label for="asignar" >Asignar tarea a:</label>
+                                <select name="user_id" id="asignar-{{ $tarea->id }}" class="border p-1 rounded-lg flex-grow">
+                                    @foreach ($usersProject as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                                <button type="submit" class="bg-green-500 p-1 text-white rounded-lg hover:bg-green-600 transition duration-200" title="Asignar Tarea">
+                                    <img src="{{ asset('img/asignar.svg') }}" alt="Asignar tarea" class="w-6">
+                                </button>
+                            </form>
+                            
+                            <div class="flex space-x-2">
+                                <a href="{{ route('tareas.update', ['proyecto' => $proyecto->id, 'tarea' => $tarea->id]) }}" class="bg-yellow-500 p-1 text-white rounded-lg hover:bg-yellow-600 transition duration-200 inline-flex items-center space-x-1">
+                                    <img src="{{ asset('img/edit.svg') }}" alt="Editar" class="w-6">
+                                </a>
+                                <form action="{{ route('tareas.destroy', ['proyecto' => $proyecto->id, 'tarea' => $tarea]) }}" method="POST" class="inline-flex items-center space-x-2">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-500 p-1 text-white rounded-lg hover:bg-red-600 transition duration-200 inline-flex items-center space-x-1">
+                                        <img src="{{ asset('img/delete.svg') }}" alt="Eliminar" class="w-6">
+                                    </button>
+                                </form>
+                            </div>
+                            
+                        @endcan
+                    @endcan
                 </div>
-                </form>
-               
-               
-       @endforeach
-   </div>
+            @endforeach
+        </div>
+        
     
     
     

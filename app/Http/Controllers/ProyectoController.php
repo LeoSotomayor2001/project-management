@@ -56,7 +56,8 @@ class ProyectoController extends Controller
 
 
     public function update(ProyectoRequest $request, proyecto $proyecto)
-    {
+    {   
+        Gate::authorize('acciones', $proyecto);
         $validated = $request->validate([
             'nombre' => 'required|max:255',
             'descripcion' => 'nullable|string',
@@ -69,6 +70,7 @@ class ProyectoController extends Controller
 
     public function destroy(proyecto $proyecto)
     {
+        Gate::authorize('acciones', $proyecto);
         $proyecto->delete();
         return redirect()->route('proyectos.index');
     }

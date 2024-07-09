@@ -8,6 +8,17 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard.dashboard');
+        $user = auth()->user();
+        $proyectos = $user->proyectos;
+
+        // Recoger todos los colaboradores únicos
+        $colaboradores = collect();
+
+        foreach ($proyectos as $proyecto) {
+            $colaboradores = $colaboradores->merge($proyecto->users);
+        }
+
+        $colaboradoresUnicos = $colaboradores->unique('id')->count();
+        return view('dashboard.dashboard', compact('proyectos', 'colaboradoresUnicos'));
     }
 }
