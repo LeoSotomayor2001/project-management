@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('homepage.homepage');
-});
+})->middleware('isAuth');
 
 Route::middleware('guest')->group(function () {
     Route::get('/registro', [RegisterController::class, 'create'])->name('register');
