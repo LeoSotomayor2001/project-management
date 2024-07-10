@@ -16,4 +16,5 @@ class ProyectoPolicy
     {
         return $user->id === $proyecto->usuario_id;
     }
+    
 }

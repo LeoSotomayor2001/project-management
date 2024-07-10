@@ -37,19 +37,30 @@ class TareaController extends Controller
 
     public function asignar(Request $request, proyecto $proyecto, Tarea $tarea)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-        ]);
+        // Verificar que el método sea POST
+        if ($request->method() !== 'POST') {
+            return redirect()->route('home');
+        }
     
-        if(!$tarea->users->isEmpty()){
-            return redirect()->route('proyectos.show', $proyecto->id)->with('error', 'La tarea ya tiene un usuario asignado');
+        try {
+            $request->validate([
+                'user_id' => 'required|exists:users,id',
+            ]);
+    
+            if (!$tarea->users->isEmpty()) {
+                return redirect()->route('proyectos.show', $proyecto->id)->with('error', 'La tarea ya tiene un usuario asignado');
+            }
+    
+            if (!$tarea->users->contains($request->user_id)) {
+                $tarea->users()->attach($request->user_id);
+                return redirect()->route('proyectos.show', $proyecto->id)->with('success', 'Asignado correctamente.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Ocurrió un error al asignar la tarea.');
         }
-        if (!$tarea->users->contains($request->user_id )) {
-            $tarea->users()->attach($request->user_id);
-            return redirect()->route('proyectos.show', $proyecto->id)->with('success', 'Asignado correctamente.');
-        }
-
     }
+    
+    
     
 
     public function edit(Tarea $tarea)
